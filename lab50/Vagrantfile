@@ -1,0 +1,126 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Specify minimum Vagrant version and Vagrant API version
+Vagrant.require_version '>= 1.6.0'
+
+VAGRANTFILE_API_VERSION = '2'
+
+# optimització: vagrant-cachier
+## https://github.com/fgrehm/vagrant-cachier
+# instal·lació:
+## vagrant plugin install vagrant-cachier
+# comprovació
+## vagrant plugin list
+
+
+# constants 
+DEFAULT_BASE_BOX = "bento/ubuntu-16.04"
+DEFAULT_BASE_BOX_URL = "http://192.168.0.12/coord/bentoubuntu-16.04"
+# outside 
+## DEFAULT_BASE_BOX_URL = "http://insjoandaustria.xtec.cat/coord/bentoubuntu-16.04"
+
+# Require 'yaml' module :DD
+require 'yaml'
+require 'rbconfig'
+
+PROJECT_NAME = '/' + File.basename(Dir.getwd)
+
+# Read YAML file with VM details (box, CPU, RAM, IP addresses...)
+# Edit machines.yml to change VM configuration details
+machines = YAML.load_file(File.join(File.dirname(__FILE__), 'machines.yml'))
+
+# Create and configure the VMs
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+## http://fgrehm.viewdocs.io/vagrant-cachier/
+## preparat per activar a nivell de box (plantilla)
+## en cas de probemes (multi-machine), activar a nivell de màquina
+## revisar també si la carpeta compartida dona problemes i passar-la a nfs
+##   if Vagrant.has_plugin?("vagrant-cachier")
+##     config.cache.scope = :box
+## ##     config.cache.scope = :machine
+##     config.cache.synced_folder_opts = {
+##       owner: "_apt",
+##       group: "vagrant"
+##     }
+##   end
+## 
+  # Always use Vagrant's default insecure key
+#  config.ssh.insert_key = false
+
+  # Iterate through entries in YAML file to create VMs
+  machines.each do |machine|
+
+    # Configure the VMs per details in machines.yml
+    config.vm.define machine['name'], autostart: machine['vmauto'] do |srv|
+
+      # Don't check for box updates
+      srv.vm.box_check_update = false
+
+      # Specify the hostname of the VM
+      srv.vm.hostname = machine['name']
+
+      # Specify the Vagrant box to use
+      ## valors per defecte o valors passats. Exemples a:
+      ## http://bertvv.github.io/notes-to-self/2015/10/05/one-vagrantfile-to-rule-them-all/
+      srv.vm.box = machine['box']['vb'] ||= DEFAULT_BASE_BOX 
+      srv.vm.box_url = machine['box']['b_url'] ||= DEFAULT_BASE_BOX_URL 
+
+## afegim sempre la carpeta compartida
+      srv.vm.synced_folder '.', '/vagrant', disabled: false
+      # Configure default synced folder (enabled by default)
+##      if machine['sync_disabled'] != nil
+##        srv.vm.synced_folder '.', '/vagrant', disabled: machine['sync_disabled']
+##      else
+##        srv.vm.synced_folder '.', '/vagrant', disabled: false
+##      end #if machine['sync_disabled']
+
+      # Iterate through networks as per settings in machines.yml
+      machine['nics'].each do |net|
+        if net['ip_addr'] == 'dhcp'
+          srv.vm.network net['type'], type: net['ip_addr'], virtualbox__intnet: net['xarxa'], auto_config: net['autostart']
+        else
+          srv.vm.network net['type'], ip: net['ip_addr'], virtualbox__intnet: net['xarxa'], auto_config: net['autostart']
+        end # if net['ip_addr']
+      end # machine['nics'].each
+## (testing-ok)      srv.vm.network "forwarded_port", guest: 10000, host: 10001, protocol: "tcp", auto_correct: true
+## (testing-ok)     srv.vm.network "forwarded_port", guest: 80, host: 8081, protocol: "tcp", auto_correct: true
+
+
+      # Configure CPU & RAM per settings in machines.yml (VirtualBox)
+      srv.vm.provider 'virtualbox' do |vb, override|
+        vb.name = machine['name']      
+        vb.memory = machine['ram']
+        vb.cpus = machine['vcpu']
+##
+## treure comentaris si és necessari
+##        vb.gui = true
+        if machine['gui'] == 'yes'
+          vb.gui = true
+        else
+          vb.gui = false
+        end 
+        override.vm.box = machine['box']['vb']
+        vb.linked_clone = true
+        vb.customize ['modifyvm', :id, '--groups', PROJECT_NAME]
+      end # srv.vm.provider 'virtualbox'
+
+##      srv.vm.provision "shell", path: machine['pscript']
+####        srv.vm.provision :shell, path: machine['pscript']
+##      srv.vm.provision :shell, path: "bootstrap-vm1.sh"
+
+
+## - nou -> habilitem més d'un script
+      # Iterate through scripts as per settings in machines.yml
+      machine['pscript'].each do |localscript|
+        srv.vm.provision :shell, path: localscript['scname']
+      end #   
+
+    end # config.vm.define
+  end # machines.each
+## preparat per activar a nivell de box (plantilla)
+#  if Vagrant.has_plugin?("vagrant-cachier")
+#    config.cache.scope = :box
+#  end
+end # Vagrant.configure

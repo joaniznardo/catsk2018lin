@@ -1,0 +1,43 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "jda.lab50"{
+    type master;
+    file "/etc/bind/zones/db.jda.lab50"; # zone file path
+    allow-transfer { "none"; };           # 
+};
+
+zone "168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.168.192";  # /16 subnet
+    allow-transfer { "none"; };           # 
+};
+
+zone "right.jda.lab50"{
+    type master;
+    file "/etc/bind/zones/db.right.jda.lab50"; # zone file path
+    allow-transfer { "none"; };           # 
+};
+
+zone "49.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.49.168.192";  # /24 subnet
+    allow-transfer { "none"; };           # 
+};
+
+zone "left.jda.lab50"{
+    type master;
+    file "/etc/bind/zones/db.left.jda.lab50"; # zone file path
+    allow-transfer { "none"; };           # 
+};
+
+zone "48.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.48.168.192";  # /24 subnet
+    allow-transfer { "none"; };           # 
+};

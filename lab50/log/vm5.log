@@ -1,0 +1,12 @@
+iniciant mv
+actualitzat apt: 0
+actualitzat systemd: 0
+deshabilitat NetworkManager: 0
+deshabilitat network: 1
+habilitant networkd: 0
+copiant config resolved: 0
+habilitant systemd-resolvd
+inicialitzant systemd-resolvd: 0
+backup antic resolv.conf: 0
+copy out resolv.conf:  0
+establint nou resolv.conf: 0

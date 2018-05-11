@@ -1,0 +1,27 @@
+$TTL 2d
+; default TTL for zone
+$ORIGIN 48.168.192.IN-ADDR.ARPA. ; base domain-name
+
+; Start of Authority record defining the key characteristics
+
+;name ttl class rr name-server e-mail sn refresh retry expiry nxdomain
+;@ 		IN		SOA		dns.left.jda.lab50. dns.left.jda.lab50. 2017110600 3h 15m 3w 3h
+@       IN      SOA     dns.left.jda.lab50. admin.left.jda.lab50. (
+         2017110600     ; Serial
+		 3h     ; Refresh
+                15m     ; Retry
+                 3w     ; Expire
+                 3h )   ; Negative Cache TTL
+;
+; name servers - NS records
+     IN      NS      dns.left.jda.lab50.
+    
+
+; name servers - A records
+101 IN PTR 					dns.left.jda.lab50. ; 
+102 IN PTR 					mail.left.jda.lab50. ;
+
+; /24 - A records
+103 IN PTR 					client1.left.jda.lab50. ;
+
+

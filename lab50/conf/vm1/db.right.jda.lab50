@@ -1,0 +1,37 @@
+;; referencia:  http://www.zytrax.com/books/dns/ch9/subdomain.html
+; IPv4 zone file for right.jda.lab50 and "virtual" subdomains
+
+
+; default TTL for zone
+;$TTL    604800 ;en segons
+$TTL 2d
+
+; la definició del domini
+$ORIGIN right.jda.lab50. 
+
+; Start of Authority record defining the key characteristics
+
+;name ttl class rr name-server e-mail sn refresh retry expiry nxdomain
+;en una línia
+;@ 		IN		SOA		dns.right.jda.lab50. admin.right.jda.lab50. 2017110600 3h 15m 3w 3h
+
+; ...o en diverses línies
+@ 		IN		SOA		dns.right.jda.lab50. admin.right.jda.lab50. (
+         2017110600     ; Serial
+		 3h     ; Refresh
+                15m     ; Retry
+                 3w     ; Expire
+                 3h )   ; Negative Cache TTL
+;
+; name servers - NS records
+; espai en blanc (o el símbol @) equivalen al domini (compte: acabat en punt!!)
+				IN	NS	dns.right.jda.lab50. 
+
+; mail servers
+				IN	MX 10 	mail.right.jda.lab50.
+
+dns				IN	A	192.168.49.101
+mail				IN	A	192.168.49.102
+client1				IN	A	192.168.49.103
+
+

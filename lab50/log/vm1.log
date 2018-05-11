@@ -1,0 +1,22 @@
+iniciant mv
+instal·lació programari servidor: 0
+ampliació a ipv4 del servei: 0
+reiniciar servei bind 1/2: 0
+reiniciar servei bind 2/2: 0
+comprovació estat: 0
+configuració de les opcions generals del bind: 0
+configuració del la part específica del servei de fail-over: 0
+creació del directori on hi seran les zones: 0
+copiant els fitxers de zones: 0
+reiniciem servei... amb l'esperança que se repliquen les zones: 0
+actualitzat apt: 0
+actualitzat systemd: 0
+deshabilitat NetworkManager: 1
+deshabilitat network: 1
+habilitant networkd: 0
+copiant config resolved: 0
+habilitant systemd-resolvd
+inicialitzant systemd-resolvd: 0
+backup antic resolv.conf: 0
+copy out resolv.conf:  0
+establint nou resolv.conf: 0

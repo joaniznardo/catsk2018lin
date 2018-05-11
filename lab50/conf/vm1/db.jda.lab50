@@ -1,0 +1,50 @@
+;; referencia:  http://www.zytrax.com/books/dns/ch9/subdomain.html
+; IPv4 zone file for jda.lab50 and "virtual" subdomains
+
+
+; default TTL for zone
+;$TTL    604800 ;en segons
+$TTL 2d
+
+; la definició del domini
+$ORIGIN jda.lab50. 
+
+; Start of Authority record defining the key characteristics
+
+;name ttl class rr name-server e-mail sn refresh retry expiry nxdomain
+;en una línia
+;@ 		IN		SOA		dns.jda.lab50. admin.jda.lab50. 2017110600 3h 15m 3w 3h
+
+; ...o en diverses línies
+@ 		IN		SOA		dns.jda.lab50. admin.jda.lab50. (
+         2017110600     ; Serial
+		 3h     ; Refresh
+                15m     ; Retry
+                 3w     ; Expire
+                 3h )   ; Negative Cache TTL
+;
+; name servers - NS records
+; espai en blanc (o el símbol @) equivalen al domini (compte: acabat en punt!!)
+				IN	NS	dns.jda.lab50. 
+				IN	NS	dns2.jda.lab50. 
+; com que pertany a dues xarxes, indicarem 
+
+; mail servers
+; en aquest cas, el domini "principal" no té associat cap servidor de correu
+;				IN	MX 10 	mail.exemple.com.
+
+dns1				IN CNAME 	dns
+
+; name servers - A records
+dns.jda.lab50.          	IN	A	192.168.48.101
+dns2.jda.lab50.          	IN	A	192.168.49.101
+
+;alternativament... si no acaba en punt, afegirem el nom del domini
+;dns		          	IN	A	192.168.48.101		
+
+; name server - A records
+; ...en aquest cas no tenim
+;mail				IN	A	192.168.48.101
+
+
+
