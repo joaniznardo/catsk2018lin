@@ -9,19 +9,35 @@ LOG=$nom_maquina.log
 ##
 ## instal·lació programari 
 ##
-sudo apt-get install -y xxxxxxxxxxxxx
-echo "instal·lació programari a servidor $nom_maquina: $?" | tee -a  /vagrant/log/$LOG
+sudo apt-get install -y bind9 bind9utils bind9-doc
+echo "instal·lació programari servidor: $?" | tee -a  /vagrant/log/$LOG
 
 ##
 ## copia dels fitxers de configuració
 ## 
-sudo cp /vagrant/conf/vm1/haproxy.cfg /etc/haproxy/
-echo "còpia dels fitxers de configuració: /etc/xxxxxxx  $?" | tee -a  /vagrant/log/$LOG
+sudo cp /vagrant/conf/vm2/bind9.service /etc/systemd/system/bind9.service
+echo "ampliació a ipv4 del servei: $?" | tee -a  /vagrant/log/$LOG
+
+sudo cp /vagrant/conf/vm2/named.conf.options /etc/bind/named.conf.options 
+echo "configuració de les opcions generals del bind: $?" | tee -a  /vagrant/log/$LOG
+
+sudo cp /vagrant/conf/vm2/named.conf.local /etc/bind/named.conf.local 
+echo "configuració del la part específica del servei de fail-over: $?" | tee -a  /vagrant/log/$LOG
+
+## zones? (se crea el directori on de manera automàtica se generaran les zones)
+sudo mkdir /etc/bind/zones
+echo "creació del directori on hi seran les zones: $?" | tee -a  /vagrant/log/$LOG
+
+sudo cp /vagrant/conf/vm2/db* /etc/bind/zones
+echo "copiant els fitxers de zones: $?" | tee -a  /vagrant/log/$LOG
 
 ##
 ## reiniciar serveis
 ##
-sudo systemctl restart xxxxxx.service
-echo "reiniciar servei xxxxxxx: $?" | tee -a  /vagrant/log/$LOG
 
+sudo systemctl daemon-reload
+echo "reiniciar servei bind 1/2: $?" | tee -a  /vagrant/log/$LOG
+
+sudo systemctl restart bind9
+echo "reiniciar servei bind 2/2: $?" | tee -a  /vagrant/log/$LOG
 
