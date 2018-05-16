@@ -77,12 +77,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 ##      end #if machine['sync_disabled']
 
       # Iterate through networks as per settings in machines.yml
+##      machine['nics'].each do |net|
+##        if net['ip_addr'] == 'dhcp'
+##          srv.vm.network net['type'], type: net['ip_addr'], virtualbox__intnet: net['xarxa'], auto_config: net['autostart']
+##        else
+##          srv.vm.network net['type'], ip: net['ip_addr'], virtualbox__intnet: net['xarxa'], auto_config: net['autostart']
+##        end # if net['ip_addr']
+##      end # machine['nics'].each
       machine['nics'].each do |net|
-        if net['ip_addr'] == 'dhcp'
-          srv.vm.network net['type'], type: net['ip_addr'], virtualbox__intnet: net['xarxa'], auto_config: net['autostart']
-        else
-          srv.vm.network net['type'], ip: net['ip_addr'], virtualbox__intnet: net['xarxa'], auto_config: net['autostart']
-        end # if net['ip_addr']
+        if net['type'] == 'public_network'
+           srv.vm.network "public_network"
+        else #... private_network :)
+          if net['ip_addr'] == 'dhcp'
+            srv.vm.network net['type'], type: net['ip_addr'], virtualbox__intnet: net['xarxa'], auto_config: net['autostart']
+          else
+            srv.vm.network net['type'], ip: net['ip_addr'], virtualbox__intnet: net['xarxa'], auto_config: net['autostart']
+          end # if net['ip_addr']
+        end # net['type']
       end # machine['nics'].each
 ## (testing-ok)      srv.vm.network "forwarded_port", guest: 10000, host: 10001, protocol: "tcp", auto_correct: true
 ## (testing-ok)     srv.vm.network "forwarded_port", guest: 80, host: 8081, protocol: "tcp", auto_correct: true
@@ -114,7 +125,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 ## - nou -> habilitem més d'un script
       # Iterate through scripts as per settings in machines.yml
       machine['pscript'].each do |localscript|
-        srv.vm.provision :shell, path: localscript['scname']
+        srv.vm.provision :shell, path: localscript['scname'], run: localscript['sctimes']
+## sctimes {once|always}
       end #   
 
     end # config.vm.define

@@ -1,0 +1,46 @@
+iniciant mv
+instal·lant apache: 0
+instal·lant vsftpd: 0
+instal·lació programari servidor: 0
+copiant config a /etc/vsftpd.conf: 0
+ampliació a ipv4 del servei: 0
+configuració de les opcions generals del bind: 0
+especificació de la zona: 0
+creació del directori on hi seran les zones: 0
+copiant els fitxers de zones: 0
+reiniciant apache: 0
+reiniciant  vsftpd: 0
+reiniciar servei bind 1/2: 0
+reiniciar servei bind 2/2: 0
+comprovació estat: 0
+actualitzat systemd: 0
+deshabilitat NetworkManager: 1
+deshabilitat network: 1
+habilitant networkd: 0
+copiant config resolved: 0
+habilitant systemd-resolvd
+inicialitzant systemd-resolvd: 0
+backup antic resolv.conf: 0
+copy out resolv.conf:  0
+establint nou resolv.conf: 0
+instal·lació programari servidor: 0
+ampliació a ipv4 del servei: 1
+reiniciar servei bind 1/2: 0
+reiniciar servei bind 2/2: 0
+comprovació estat: 0
+configuració de les opcions generals del bind: 1
+configuració del la part específica del servei de fail-over: 1
+creació del directori on hi seran les zones: 1
+copiant els fitxers de zones: 1
+reiniciem servei... amb l'esperança que se repliquen les zones: 0
+actualitzat apt: 0
+actualitzat systemd: 0
+deshabilitat NetworkManager: 1
+deshabilitat network: 1
+habilitant networkd: 0
+copiant config resolved: 0
+habilitant systemd-resolvd
+inicialitzant systemd-resolvd: 0
+backup antic resolv.conf: 0
+copy out resolv.conf:  0
+establint nou resolv.conf: 0

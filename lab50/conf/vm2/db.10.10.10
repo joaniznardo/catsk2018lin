@@ -1,0 +1,27 @@
+$TTL 2d
+; default TTL for zone
+$ORIGIN 10.10.10.IN-ADDR.ARPA.
+
+
+; Start of Authority record defining the key characteristics
+
+;name ttl class rr name-server e-mail sn refresh retry expiry nxdomain
+;@ 		IN		SOA		dns.catskills39-2018.cat. admin.catskills39-2018.cat. 2018051300 3h 15m 3w 3h
+@       IN      SOA     dns.catskills39-2018.cat. admin.catskills39-2018.cat. (
+         2018051500     ; Serial
+		 3h     ; Refresh
+                15m     ; Retry
+                 3w     ; Expire
+                 3h )   ; Negative Cache TTL
+;
+; name servers - NS records
+     IN      NS      dns.catskills39-2018.cat.
+     IN      NS      dns2.catskills39-2018.cat.
+
+; name servers - A records
+2 IN PTR 					dns.catskills39-2018.cat. ; 
+3 IN PTR 					dns2.catskills39-2018.cat. ; 
+1 IN PTR 					www.catskills39-2018.cat. ; 
+1 IN PTR 					intranet.catskills39-2018.cat. ; 
+2 IN PTR 					front1.catskills39-2018.cat. ; 
+3 IN PTR 					front2.catskills39-2018.cat. ; 

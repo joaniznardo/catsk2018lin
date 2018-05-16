@@ -1,0 +1,40 @@
+    1  ip a
+    2  ping 10.10.10.1
+    3  sudo apt install -y apache2 
+    4  exit
+    5  sudo apt install -y vsftpd
+    6  sudo cp /etc/vsftpd.conf 
+    7  sudo cp /etc/vsftpd.conf{,.ini} 
+    8  sudo vi /etc/vsftpd.conf{,.ini} 
+    9  sudo vi /etc/vsftpd.conf
+   10  ls -l /var/www/html/
+   11  cp  /etc/vsftpd.conf /vagrant/conf/vm2/
+   12  sudo systemctl restart vsftpd.service 
+   13  sudo vi /etc/vsftpd.conf
+   14  sudo systemctl restart vsftpd.service 
+   15  sudo vi /etc/vsftpd.conf
+   16  sudo systemctl restart vsftpd.service 
+   17  sudo systemctl rstatus vsftpd.service 
+   18  sudo systemctl status vsftpd.service 
+   19  sudo vi /etc/vsftpd.conf
+   20  grep list /etc/vsftpd.conf
+   21  grep list_file /etc/vsftpd.conf
+   22  sudo vi /etc/vsftpd.chroot_list
+   23  sudo systemctl rstatus vsftpd.service 
+   24  sudo systemctl restart vsftpd.service 
+   25  sudo systemctl rstatus vsftpd.service 
+   26  sudo systemctl status vsftpd.service 
+   27  sudo vi /etc/vsftpd.chroot_list
+   28  sudo vi /etc/vsftpd.conf
+   29  sudo systemctl restart vsftpd.service 
+   30  ls -l
+   31  mv index2.html fail.html
+   32  sudo netstat -atnp
+   33* 
+   34  sudo vi /etc/vsftpd.conf
+   35  sudo systemctl restart vsftpd.service 
+   36  sudo systemctl status vsftpd.service 
+   37  ip a
+   38  sudo tcpdump -i eth1 
+   39  history
+   40  history | tee /vagrant/history/vm2.history

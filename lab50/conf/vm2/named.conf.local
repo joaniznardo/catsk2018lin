@@ -1,0 +1,22 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "catskills39-2018.cat"{
+    type master;
+    file "/etc/bind/zones/db.catskills39-2018.cat"; # zone file path
+    allow-transfer { 10.10.10.3; };           # 
+##    allow-transfer { "none"; };           # 
+};
+
+zone "10.10.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.10.10.10";  # /24 subnet
+    allow-transfer { 10.10.10.3; };           # 
+#    allow-transfer { "none"; };           # 
+##    allow-transfer { "none"; };           # 
+};

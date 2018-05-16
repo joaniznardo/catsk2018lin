@@ -1,0 +1,19 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "catskills39-2018.cat" {
+    type slave;
+    file "/var/cache/bind/db.catskills39-2018.cat"; # zone file path
+    masters { 10.10.10.2; };           # ns1 private IP address - primary
+};
+
+zone "10.10.10.in-addr.arpa" {
+    type slave;
+    file "/var/cache/bind/db.10.10.10";  # /24 subnet
+    masters { 10.10.10.2; };    # ns1 private IP address - primary
+};

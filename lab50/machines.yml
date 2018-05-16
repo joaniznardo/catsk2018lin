@@ -1,13 +1,13 @@
 ---
-# HAproxy
+# ls1 - HAproxy
 - box:
     vb: "bento/ubuntu-16.04"
   b_url: "http://192.168.0.12/coord/bentoubuntu-16.04"
   name: "ls1.catskills39-2018.cat"
   vmauto: true
   nics:
-    - type: "public_network"
-      ip_addr: "dhcp"
+    - type: "private_network"
+      ip_addr: "192.168.39.1"
       xarxa: "lan00"
       autostart: true
     - type: "private_network"
@@ -18,8 +18,16 @@
   vcpu: "1"
   gui: "no"
   pscript:
-    - scname: "boot/all/00-bootstrap-all.sh"
-    - scname: "boot/vm1/bootstrap-vm1.sh"
+    - scname: "boot/vm1/task00.sh
+      sctimes: "once"
+    - scname: "boot/vm1/task01.sh
+      sctimes: "once"
+    - scname: "boot/vm1/task02.sh
+      sctimes: "once"
+    - scname: "boot/vm1/task06.sh
+      sctimes: "once"
+    - scname: "boot/vm1/task99.sh
+      sctimes: "always"
   
 # ls2 - 
 - box:
@@ -37,57 +45,47 @@
   gui: "no"
   pscript:
     - scname: "boot/all/00-bootstrap-all.sh"
+      sctimes: "once"
     - scname: "boot/vm2/bootstrap-vm2.sh"
-    - scname: "boot/vm2/00-apache.sh"
-  
-- box:
-    vb: "boxcutter/ubuntu1604-desktop"
-  b_url: "http://192.168.0.12/coord/ub1604desktop.box"
-  name: "vm3.left.catskills39-2018.cat"
-  vmauto: false
-  nics:
-    - type: "private_network"
-      ip_addr: "192.168.48.103"
-      xarxa: "lan01"
-      autostart: true
-  ram: "1024"
-  vcpu: "1"
-  gui: "yes"
-  pscript:
-    - scname: "boot/all/00-bootstrap-all.sh"
-    - scname: "boot/vm3/bootstrap-vm3.sh"
-  
+      sctimes: "once"
+#    - scname: "boot/vm2/00-apache.sh"
+
+# ls3  
 - box:
     vb: "bento/ubuntu-16.04"
   b_url: "http://192.168.0.12/coord/bentoubuntu-16.04"
-  name: "vm4.right.catskills39-2018.cat"
+  name: "ls3.catskills39-2018.cat"
   vmauto: false
   nics:
     - type: "private_network"
-      ip_addr: "192.168.49.102"
-      xarxa: "lan02"
+      ip_addr: "10.10.10.3"
+      xarxa: "lan01"
       autostart: true
   ram: "256"
   vcpu: "1"
   gui: "no"
   pscript:
     - scname: "boot/all/00-bootstrap-all.sh"
-    - scname: "boot/vm4/bootstrap-vm4.sh"
-    
-  
+      sctimes: "once"
+    - scname: "boot/vm3/bootstrap-vm3.sh"
+      sctimes: "once"
+# cl1  
 - box:
-    vb: "boxcutter/ubuntu1604-desktop"
-  b_url: "http://192.168.0.12/coord/ub1604desktop.box"
-  name: "vm5.right.catskills39-2018.cat"
+    vb: "lubuntu_201804"
+  b_url: "http://192.168.0.12/coord/lubuntu.box"
+  name: "lc1.catskills39-2018.cat"
   vmauto: false
   nics:
     - type: "private_network"
-      ip_addr: "192.168.49.103"
-      xarxa: "lan02"
+      ip_addr: "192.168.39.2"
+      xarxa: "lan00"
       autostart: true
   ram: "1024"
   vcpu: "1"
   gui: "yes"
   pscript:
-    - scname: "boot/all/00-bootstrap-all.sh"
-    - scname: "boot/vm5/bootstrap-vm5.sh"
+    - scname: "boot/all/00-bootstrap-all.sh" 
+      sctimes: "once"
+#    - scname: "boot/vm4/bootstrap-vm4.sh", sctimes: "once"
+    
+  

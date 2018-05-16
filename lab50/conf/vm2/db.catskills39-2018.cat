@@ -1,5 +1,5 @@
 ;; referencia:  http://www.zytrax.com/books/dns/ch9/subdomain.html
-; IPv4 zone file for jda.lab50 and "virtual" subdomains
+; IPv4 zone file for catskills39-2018.cat and "virtual" subdomains
 
 
 ; default TTL for zone
@@ -7,17 +7,17 @@
 $TTL 2d
 
 ; la definició del domini
-$ORIGIN jda.lab50. 
+$ORIGIN catskills39-2018.cat. 
 
 ; Start of Authority record defining the key characteristics
 
 ;name ttl class rr name-server e-mail sn refresh retry expiry nxdomain
 ;en una línia
-;@ 		IN		SOA		dns.jda.lab50. admin.jda.lab50. 2017110600 3h 15m 3w 3h
+;@ 		IN		SOA		dns.catskills39-2018.cat. admin.catskills39-2018.cat. 2018051300 3h 15m 3w 3h
 
 ; ...o en diverses línies
-@ 		IN		SOA		dns.jda.lab50. admin.jda.lab50. (
-         2017110600     ; Serial
+@ 		IN		SOA		dns.catskills39-2018.cat. admin.catskills39-2018.cat. (
+         2018051500     ; Serial
 		 3h     ; Refresh
                 15m     ; Retry
                  3w     ; Expire
@@ -25,26 +25,29 @@ $ORIGIN jda.lab50.
 ;
 ; name servers - NS records
 ; espai en blanc (o el símbol @) equivalen al domini (compte: acabat en punt!!)
-				IN	NS	dns.jda.lab50. 
-				IN	NS	dns2.jda.lab50. 
+				IN	NS	dns.catskills39-2018.cat. 
+				IN	NS	dns2.catskills39-2018.cat. 
 ; com que pertany a dues xarxes, indicarem 
 
 ; mail servers
 ; en aquest cas, el domini "principal" no té associat cap servidor de correu
 ;				IN	MX 10 	mail.exemple.com.
 
-dns1				IN CNAME 	dns
 
 ; name servers - A records
-dns.jda.lab50.          	IN	A	192.168.48.101
-dns2.jda.lab50.          	IN	A	192.168.49.101
+dns.catskills39-2018.cat.          	IN	A	10.10.10.2
+dns2.catskills39-2018.cat.          	IN	A       10.10.10.3
 
 ;alternativament... si no acaba en punt, afegirem el nom del domini
-;dns		          	IN	A	192.168.48.101		
+;dns		          	IN	A	10.10.10.2
 
 ; name server - A records
 ; ...en aquest cas no tenim
-;mail				IN	A	192.168.48.101
+;mail				IN	A	10.10.10.10
 
-
+; www
+www				IN	A	10.10.10.1
+intranet			IN	A	10.10.10.1
+frontal1			IN	A	10.10.10.2
+frontal2			IN	A	10.10.10.3
 
