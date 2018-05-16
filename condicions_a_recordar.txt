@@ -1,0 +1,5 @@
+ls1: farà de router: ipforward bit > 1
+cl1: passarel·la 192.168.39.1
+cl1: /etc/resolv.conf - 10.10.10.2; 10.10.10.3
+lsx: /etc/resolv.conf - 10.10.10.2; 10.10.10.3
+ls2-3: passarel·la 10.10.10.1

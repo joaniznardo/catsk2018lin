@@ -16,17 +16,11 @@ echo "instal·lació programari a servidor $nom_maquina: $?" | tee -a  /vagrant/
 ##
 ## copia dels fitxers de configuració
 ## 
-# @ 1a
-sudo cp /vagrant/conf/vm1/sysctl.conf /etc
-echo "còpia dels fitxers de configuració: /etc/sysctl.conf  $?" | tee -a  /vagrant/log/$LOG
 
 ##
 ## reiniciar serveis
 ##
 
-# @ 1a
-sudo sysctl -p 
-echo "reiniciar el fitxer de configuració del nucli: som un router: $?" | tee -a  /vagrant/log/$LOG
 
 ##
 ## alta comptes
